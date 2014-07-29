@@ -13,8 +13,8 @@ our $VERSION = 0.001;
 sub from_sets {
 	my ($self, $set1, $set2) = @_;
 	return $self->_similarity(
-		[keys %$set1],
-		[keys %$set2]
+		$set1,
+		$set2
 	);
 }
 
