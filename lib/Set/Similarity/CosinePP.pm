@@ -21,24 +21,14 @@ sub from_sets {
 sub _similarity {
 	my ( $self, $tokens1,$tokens2 ) = @_;
 	
-	#print STDERR 'tokens1: ', Dumper($tokens1),"\n";
-	#print STDERR 'tokens2: ', Dumper($tokens2),"\n";
-	
-	
 	$self->make_elem_list($tokens1,$tokens2);
-	
-	#print STDERR 'elem_index: ', Dumper($self->{'elem_index'}),"\n";
-	#print STDERR 'elem_list: ', Dumper($self->{'elem_list'}),"\n";
-	#print STDERR 'elem_count: ', Dumper($self->{'elem_count'}),"\n";
-	
+		
 	my $vec1 = $self->make_vector( $tokens1 );
 	my $vec2 = $self->make_vector( $tokens2 );
 	
 	
 	my $cosine = $self->cosine( $self->normalize($vec1), $self->normalize($vec2) );
-	
-	#print STDERR 'cosine: ',$cosine,"\n";
-	
+		
 	return $cosine;
 }
 
@@ -65,7 +55,6 @@ sub make_vector {
 		my $offset = $self->{'elem_index'}->{$key};
 		$vector->[$offset] = $value;
 	}
-	#print STDERR '$vector: ',Dumper($vector),"\n";
 	return $vector;
 }
 
@@ -73,15 +62,12 @@ sub make_elem_list {
 	my ( $self,$tokens1,$tokens2 ) = @_;
 	my %all_elems;
 	@all_elems{@$tokens1,@$tokens2} = ();
-	#@all_elems{@$tokens2} = ();
-	#print STDERR '%all_elems: ',Dumper(\%all_elems),"\n";	
 	
 	# create a lookup hash
 	my %lookup;
 	$self->{'elem_list'} = [sort keys %all_elems];
 	$self->{'elem_count'} = scalar @{$self->{'elem_list'}};
 	@lookup{@{$self->{'elem_list'}}} = (0..$self->{'elem_count'}-1 );
-	#print STDERR '%lookup: ',Dumper(\%lookup),"\n";	
 	
 	$self->{'elem_index'} = \%lookup;
 }
@@ -89,8 +75,6 @@ sub make_elem_list {
 # Assumes both incoming vectors are normalized
 sub cosine {
 	my ( $self, $vec1, $vec2 ) = @_;
-	#print STDERR '$vec1: ',Dumper($vec1),"\n";
-	#print STDERR '$vec2: ',Dumper($vec2),"\n";
 	my $cos = $self->dot( $vec1, $vec2 );	# inner product
 	return $cos;
 }
