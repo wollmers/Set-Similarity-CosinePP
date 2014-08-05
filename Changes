@@ -1,6 +1,7 @@
 Revision history for Set::Similarity::CosinePP
 
 {{$NEXT}}
+       - code cleanup
 
 0.004  2014-08-04 21:59:49 CEST
        - quote version

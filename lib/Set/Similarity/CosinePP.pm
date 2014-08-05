@@ -5,78 +5,63 @@ use warnings;
 
 use parent 'Set::Similarity';
 
-#use PDL;
-#use Data::Dumper;
-
 our $VERSION = '0.004';
 
 sub from_sets {
-	my ($self, $set1, $set2) = @_;
-	return $self->_similarity(
-		$set1,
-		$set2
-	);
+  my ($self, $set1, $set2) = @_;
+  return $self->_similarity(
+	$set1,
+	$set2
+  );
 }
 
 sub _similarity {
-	my ( $self, $tokens1,$tokens2 ) = @_;
+  my ( $self, $tokens1,$tokens2 ) = @_;
 	
-	$self->make_elem_list($tokens1,$tokens2);
+  $self->make_elem_list($tokens1,$tokens2);
 		
-	my $vec1 = $self->make_vector( $tokens1 );
-	my $vec2 = $self->make_vector( $tokens2 );
-	
-	
-	my $cosine = $self->cosine( $self->normalize($vec1), $self->normalize($vec2) );
-		
-	return $cosine;
-}
+  my $vec1 = $self->make_vector( $tokens1 );
+  my $vec2 = $self->make_vector( $tokens2 );
 
-sub build_index {
-	my ( $self ) = @_;
-	$self->make_word_list();
-	my @vecs;
-	for my $doc ( @{ $self->{'docs'} }) {
-		my $vec = $self->make_vector( $doc );
-		push @vecs, norm $vec;
-	}
-	$self->{'doc_vectors'} = \@vecs;
-	print "Finished with word list\n";
+  my $cosine = $self->cosine( 
+	$self->normalize($vec1), 
+	$self->normalize($vec2) 
+  );
+  return $cosine;
 }
 
 sub make_vector {
-	my ( $self, $tokens ) = @_;
-	#my %elements = $self->get_elements( $tokens );
-	#print STDERR '%elements: ',Dumper(\%elements),"\n";	
-	my $vector = $self->zeros($self->{'elem_count'});
+  my ( $self, $tokens ) = @_;
 	
-	for my $key ( @$tokens ) {
-		my $value = 1;
-		my $offset = $self->{'elem_index'}->{$key};
-		$vector->[$offset] = $value;
-	}
-	return $vector;
+  my $vector = $self->zeros($self->{'elem_count'});
+	
+  for my $key ( @$tokens ) {
+	my $value = 1;
+	my $offset = $self->{'elem_index'}->{$key};
+	$vector->[$offset] += $value;
+  }
+  return $vector;
 }
 
 sub make_elem_list {
-	my ( $self,$tokens1,$tokens2 ) = @_;
-	my %all_elems;
-	@all_elems{@$tokens1,@$tokens2} = ();
+  my ( $self,$tokens1,$tokens2 ) = @_;
+
+  my %all_elems;
+  @all_elems{@$tokens1,@$tokens2} = ();
 	
-	# create a lookup hash
-	my %lookup;
-	$self->{'elem_list'} = [sort keys %all_elems];
-	$self->{'elem_count'} = scalar @{$self->{'elem_list'}};
-	@lookup{@{$self->{'elem_list'}}} = (0..$self->{'elem_count'}-1 );
+  # create a lookup hash
+  my %lookup;
+  $self->{'elem_list'} = [sort keys %all_elems];
+  $self->{'elem_count'} = scalar @{$self->{'elem_list'}};
+  @lookup{@{$self->{'elem_list'}}} = (0..$self->{'elem_count'}-1 );
 	
-	$self->{'elem_index'} = \%lookup;
+  $self->{'elem_index'} = \%lookup;
 }
 
 # Assumes both incoming vectors are normalized
 sub cosine {
-	my ( $self, $vec1, $vec2 ) = @_;
-	my $cos = $self->dot( $vec1, $vec2 );	# inner product
-	return $cos;
+  my ( $self, $vector1, $vector2 ) = @_;
+  return $self->dot( $vector1, $vector2 );	# inner product
 }
 
 sub norm {
@@ -84,8 +69,7 @@ sub norm {
   my $vector = shift;
   my $sum = 0;
   for my $index (0..scalar(@$vector)-1) {
-    my $value = $vector->[$index];
-    $sum += $value ** 2;
+    $sum += $vector->[$index] ** 2;
   }
   return sqrt $sum;
 }
@@ -109,32 +93,30 @@ sub zeros {
 }
 
 sub dot {
-    my $self = shift;
-    my $v1 = shift;
-    my $v2 = shift;
+  my $self = shift;
+  my $vector1 = shift;
+  my $vector2 = shift;
 
-    my $dotprod = 0;
+  my $dotprod = 0;
 
-    for my $index (0..scalar(@$v1)-1) {
-      $dotprod += $v1->[$index] * $v2->[$index];
-    }
-
-    return $dotprod;
+  for my $index (0..scalar(@$vector1)-1) {
+    $dotprod += $vector1->[$index] * $vector2->[$index];
+  }
+  return $dotprod;
 }
 
 # divides each vector entry by a given divisor
 sub div {
-    my $self = shift;
-    my $vector = shift;
-    my $divisor = shift;
+  my $self = shift;
+  my $vector = shift;
+  my $divisor = shift;
 
-    my $vector2 = [@$vector];
-    for my $index (0..scalar(@$vector2)-1) {
-        $vector2->[$index] /= $divisor;
-    }
-    return $vector2;
+  my $vector2 = [@$vector];
+  for my $index (0..scalar(@$vector2)-1) {
+    $vector2->[$index] /= $divisor;
+  }
+  return $vector2;
 }
-
 
 1;
 
