@@ -17,46 +17,23 @@ sub from_sets {
 
 sub _similarity {
   my ( $self, $tokens1,$tokens2 ) = @_;
-	
-  $self->make_elem_list($tokens1,$tokens2);
 		
-  my $vec1 = $self->make_vector( $tokens1 );
-  my $vec2 = $self->make_vector( $tokens2 );
+  my $vector1 = $self->make_vector( $tokens1 );
+  my $vector2 = $self->make_vector( $tokens2 );
 
   my $cosine = $self->cosine( 
-	$self->normalize($vec1), 
-	$self->normalize($vec2) 
+	$self->normalize($vector1), 
+	$self->normalize($vector2) 
   );
   return $cosine;
 }
 
-sub make_vector {
+sub make_vector {			
   my ( $self, $tokens ) = @_;
-	
-  my $vector = $self->zeros($self->{'elem_count'});
-	
-  for my $key ( @$tokens ) {
-	my $value = 1;
-	my $offset = $self->{'elem_index'}->{$key};
-	$vector->[$offset] += $value;
-  }
-  return $vector;
-}
-
-sub make_elem_list {
-  my ( $self,$tokens1,$tokens2 ) = @_;
-
-  my %all_elems;
-  @all_elems{@$tokens1,@$tokens2} = ();
-	
-  # create a lookup hash
-  my %lookup;
-  $self->{'elem_list'} = [sort keys %all_elems];
-  $self->{'elem_count'} = scalar @{$self->{'elem_list'}};
-  @lookup{@{$self->{'elem_list'}}} = (0..$self->{'elem_count'}-1 );
-	
-  $self->{'elem_index'} = \%lookup;
-}
+  my %elements;  
+  do { $_++ } for @elements{@$tokens};
+  return \%elements;
+}	
 
 # Assumes both incoming vectors are normalized
 sub cosine {
@@ -68,8 +45,8 @@ sub norm {
   my $self = shift;
   my $vector = shift;
   my $sum = 0;
-  for my $index (0..scalar(@$vector)-1) {
-    $sum += $vector->[$index] ** 2;
+  for my $key (keys %$vector) {
+    $sum += $vector->{$key} ** 2;
   }
   return sqrt $sum;
 }
@@ -99,11 +76,12 @@ sub dot {
 
   my $dotprod = 0;
 
-  for my $index (0..scalar(@$vector1)-1) {
-    $dotprod += $vector1->[$index] * $vector2->[$index];
+  for my $key (keys %$vector1) {
+    $dotprod += $vector1->{$key} * $vector2->{$key} if ($vector2->{$key});
   }
   return $dotprod;
 }
+
 
 # divides each vector entry by a given divisor
 sub div {
@@ -111,12 +89,13 @@ sub div {
   my $vector = shift;
   my $divisor = shift;
 
-  my $vector2 = [@$vector];
-  for my $index (0..scalar(@$vector2)-1) {
-    $vector2->[$index] /= $divisor;
+  my $vector2 =  {};
+  for my $key (keys %$vector) {
+    $vector2->{$key} = $vector->{$key} / $divisor;
   }
   return $vector2;
 }
+
 
 1;
 

@@ -1,6 +1,7 @@
 Revision history for Set::Similarity::CosinePP
 
 {{$NEXT}}
+       - use hashes for sparse vectors
 
 0.005  2014-08-05 21:52:25 CEST
        - code cleanup
