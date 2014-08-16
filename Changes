@@ -1,6 +1,7 @@
 Revision history for Set::Similarity::CosinePP
 
 {{$NEXT}}
+       - add travis
 
 0.008  2014-08-10 08:56:06 CEST
        - code simplification
