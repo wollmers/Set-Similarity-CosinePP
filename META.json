@@ -1,5 +1,5 @@
 {
-   "abstract" : "Cosine similarity for sets",
+   "abstract" : "Cosine similarity for sets pure Perl vector implementation",
    "author" : [
       "Helmut Wollmersdorfer, <helmut.wollmersdorfer@gmail.com>"
    ],
@@ -58,7 +58,7 @@
          "web" : "https://github.com/wollmers/Set-Similarity-CosinePP"
       }
    },
-   "version" : "0.008",
+   "version" : "0.009",
    "x_contributors" : [
       "Helmut Wollmersdorfer <helmut@wollmersdorfer.at>"
    ]
