@@ -36,7 +36,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Set::Similarity" : "0.009",
+            "Set::Similarity" : "0.022",
             "perl" : "5.006000"
          }
       },
@@ -58,7 +58,7 @@
          "web" : "https://github.com/wollmers/Set-Similarity-CosinePP"
       }
    },
-   "version" : "0.010",
+   "version" : "0.011",
    "x_contributors" : [
       "Helmut Wollmersdorfer <helmut@wollmersdorfer.at>"
    ]
