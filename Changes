@@ -1,6 +1,7 @@
 Revision history for Set::Similarity::CosinePP
 
 {{$NEXT}}
+       - requires Set::Similarity 0.022
 
 0.010  2014-08-16 23:45:30 CEST
        - badges in pod
