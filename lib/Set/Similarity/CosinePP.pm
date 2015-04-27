@@ -83,9 +83,14 @@ __END__
 
 Set::Similarity::CosinePP - Cosine similarity for sets pure Perl vector implementation
 
-=for html
+=begin html
+
 <a href="https://travis-ci.org/wollmers/Set-Similarity-CosinePP"><img src="https://travis-ci.org/wollmers/Set-Similarity-CosinePP.png" alt="Set-Similarity-CosinePP"></a>
 <a href='https://coveralls.io/r/wollmers/Set-Similarity-CosinePP?branch=master'><img src='https://coveralls.io/repos/wollmers/Set-Similarity-CosinePP/badge.png?branch=master' alt='Coverage Status' /></a>
+<a href='http://cpants.cpanauthors.org/dist/Set-Similarity-CosinePP'><img src='http://cpants.cpanauthors.org/dist/Set-Similarity-CosinePP.png' alt='Kwalitee Score' /></a>
+<a href="http://badge.fury.io/pl/Set-Similarity-CosinePP"><img src="https://badge.fury.io/pl/Set-Similarity-CosinePP.svg" alt="CPAN version" height="18"></a>
+
+=end html
 
 =head1 SYNOPSIS
 
@@ -122,6 +127,12 @@ L<http://github.com/wollmers/Set-Similarity-CosinePP>
 =head1 AUTHOR
 
 Helmut Wollmersdorfer, E<lt>helmut.wollmersdorfer@gmail.comE<gt>
+
+=begin html
+
+<a href='http://cpants.cpanauthors.org/author/wollmers'><img src='http://cpants.cpanauthors.org/author/wollmers.png' alt='Kwalitee Score' /></a>
+
+=end html
 
 =head1 COPYRIGHT AND LICENSE
 
