@@ -1,6 +1,8 @@
 Revision history for Set::Similarity::CosinePP
 
 {{$NEXT}}
+
+0.013  2015-04-27 15:49:41 CEST
        - improved travis config, badges
 
 0.012  2014-10-19 22:32:00 CEST
