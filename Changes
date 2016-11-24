@@ -1,6 +1,7 @@
 Revision history for Set::Similarity::CosinePP
 
 {{$NEXT}}
+       requires 'parent'
 
 0.013  2015-04-27 15:49:41 CEST
        - improved travis config, badges
