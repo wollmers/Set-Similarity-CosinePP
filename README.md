@@ -12,11 +12,10 @@ Set::Similarity::CosinePP - Cosine similarity for sets pure Perl vector implemen
 # SYNOPSIS
 
     use Set::Similarity::CosinePP;
-    
+
     # object method
     my $cosine = Set::Similarity::CosinePP->new;
     my $similarity = $cosine->similarity('Photographer','Fotograf');
-    
 
 # DESCRIPTION
 
@@ -26,13 +25,12 @@ A intersection B / (sqrt(A) \* sqrt(B))
 
 # METHODS
 
-[Set::Similarity::CosinePP](https://metacpan.org/pod/Set::Similarity::CosinePP) inherits all methods from [Set::Similarity](https://metacpan.org/pod/Set::Similarity) and implements the
+[Set::Similarity::CosinePP](https://metacpan.org/pod/Set%3A%3ASimilarity%3A%3ACosinePP) inherits all methods from [Set::Similarity](https://metacpan.org/pod/Set%3A%3ASimilarity) and implements the
 following new ones.
 
 ## from\_sets
 
-     my $similarity = $object->from_sets(['a'],['b']);
-    
+    my $similarity = $object->from_sets(['a'],['b']);
 
 This method expects two arrayrefs of strings as parameters. The parameters are not checked, thus can lead to funny results or uncatched divisions by zero.
 
@@ -44,7 +42,7 @@ If you want to use this method directly, you should take care that the elements 
 
 # AUTHOR
 
-Helmut Wollmersdorfer, &lt;helmut.wollmersdorfer@gmail.com>
+Helmut Wollmersdorfer, <helmut.wollmersdorfer@gmail.com>
 
 <div>
     <a href='http://cpants.cpanauthors.org/author/wollmers'><img src='http://cpants.cpanauthors.org/author/wollmers.png' alt='Kwalitee Score' /></a>
@@ -52,7 +50,7 @@ Helmut Wollmersdorfer, &lt;helmut.wollmersdorfer@gmail.com>
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2013-2014 by Helmut Wollmersdorfer
+Copyright (C) 2013-2020 by Helmut Wollmersdorfer
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
